@@ -12,7 +12,7 @@ find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(Vulkan REQUIRED)
 
-add_library(Renderer SHARED ${HEADERS} ${SOURCES})
+add_library(Renderer STATIC ${HEADERS} ${SOURCES})
 
 target_link_libraries(Renderer PUBLIC glfw)
 target_link_libraries(Renderer PUBLIC glm::glm)

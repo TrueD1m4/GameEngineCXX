@@ -17,14 +17,21 @@
 
 namespace GraphicsEngine {
 
-    enum AppType {
-        DEBUG,
-        RELEASE
+    [[maybe_unused]] const std::vector<const char*> validationLayers = {
+            "VK_LAYER_KHRONOS_validation"
     };
+
+#ifdef NDEBUG
+    const bool enableValidationLayers = false;
+#else
+    const bool enableValidationLayers = true;
+#endif
+
+    [[maybe_unused]] bool CheckValidationLayerSupport();
 
     class Renderer {
     public:
-        Renderer(int32_t width, int32_t height, std::string title, AppType type);
+        Renderer(int32_t width, int32_t height, std::string title);
         void Run();
 
     private:
@@ -34,9 +41,18 @@ namespace GraphicsEngine {
         void Cleanup();
 
     private:
+        void CreateInstance();
+
+        //Window settings
+    private:
         int32_t m_Width, m_Height;
         std::string m_Title;
         GLFWwindow* m_Window;
+
+        //Vulkan-operator fields
+    private:
+        VkInstance m_VulkanInstance{};
+
     };
 
 } // GraphicsEngine
